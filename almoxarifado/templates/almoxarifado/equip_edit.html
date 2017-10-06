@@ -1,0 +1,10 @@
+{% extends 'almoxarifado/base.html' %}
+
+{% block content %}
+    <h1>Novo Item</h1>
+    <form method="POST" class="equip-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-default">Cadastrar</button>
+    </form>
+{% endblock %}

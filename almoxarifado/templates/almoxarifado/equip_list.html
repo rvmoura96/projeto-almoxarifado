@@ -1,0 +1,54 @@
+{% extends 'almoxarifado/base.html' %}
+
+    {% block content %}
+    <div class="table-responsive">
+        <table class ="table table-hover">
+            <caption><h2>Visão Geral de Equipamentos</h2></caption>
+                <tr>
+                    <th>Modelo</th>
+                    <th>Tipo</th>
+                    <th>AI</th>
+                    <th>Quantidade</th>
+                    <th>Status</th>
+                    <th>Observacoes</th>
+                    <th>Detalhes</th>
+                </tr>
+            {% for equip in equips %}
+                <tr>
+                    <td>{{ equip.modelo }}</td>
+                    <td>{{ equip.tipo }}</td>
+                    {% if equip.tipo == 'Periféricos' or equip.tipo == 'Consumíveis' %}
+                        <td></td>
+                    {% else %}
+                    <td>{{ equip.ativo_imobilizado }}</td>
+                    {% endif %}
+                    <td>{{ equip.quantidade }}</td>
+                    <td>{{ equip.status }}</td>
+                    <td>{{ equip.observacoes }}</td>
+                    <td><a href="{% url 'equip_detail' pk=equip.pk %}">Visualizar</a></td>
+                </tr>
+            {% endfor %}
+        </table><br/>
+    
+    {% if equips.has_other_pages %}
+        <ul class="pagination">
+            {% if equips.has_previous %}
+                <li><a href="?page={{ equips.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in equips.paginator.page_range %}
+                {% if equips.number == i %}
+                    <li class="active"><span>{{ i }}<span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li><a href="?page={{ i }}"> {{ i }} </a></li>
+                {% endif %}
+            {% endfor %}
+            {% if equips.has_next %}
+                <li><a href="?page={{  equips.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+    {% endblock %}  
