@@ -10,8 +10,6 @@ class Equipamento(models.Model):
     projetor = 'Projetor'
     impressora = 'Impressora'
     monitor = 'Monitor'
-    perifericos = 'Periféricos'
-    consumiveis = 'Consumíveis'
 
     tipo_choices = (
         (notebook, 'Notebook'),
@@ -19,27 +17,50 @@ class Equipamento(models.Model):
         (projetor, 'Projetor'),
         (impressora, 'Impressora'),
         (monitor, 'Monitor'),
-        (perifericos, 'Periféricos'),
-        (consumiveis, 'Consumíveis'),
 
     )
 
     status_choices = (
-        (disponivel, 'Disponivel'),
-        (indisponivel, 'Indisponivel'),
+        (disponivel, 'Disponível'),
+        (indisponivel, 'Indisponível'),
     )
 
     tipo = models.CharField(max_length=50, choices=tipo_choices, default=notebook)
     modelo = models.CharField(max_length=170)
-    fabricante = models.CharField(max_length=90, null=True, blank=True)
-    ativo_imobilizado = models.IntegerField(null=True, blank=True)
-    serial_number = models.CharField(max_length=30, null=True, blank=True)
+    fabricante = models.CharField(max_length=90, default= None)
+    ativo_imobilizado = models.PositiveIntegerField(default=0, unique=True)
+    serial_number = models.CharField(max_length=30, unique=True, default= None)
     status = models.CharField(max_length=12, choices=status_choices, default=disponivel)
-    quantidade = models.PositiveIntegerField(default=1)
-    data_retirada = models.DateField(null=True, blank=True)
-    data_entrega  = models.DateField(null=True, blank=True)
-    localizacao = models.CharField(max_length=150, null=True, blank=True)
+    prateleira = models.PositiveIntegerField(default=0)
     observacoes = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.modelo
+
+class Item(models.Model):
+    disponivel = 'Disponivel'
+    indisponivel = 'Indisponivel'
+
+    perifericos = 'Periféricos'
+    consumiveis = 'Consumíveis'
+
+    status_choices = (
+        (disponivel,' Disponível'),
+        (indisponivel, 'Indisponível'),
+    )
+
+    tipo_choices = {
+        (consumiveis, 'Consumíveis'),
+        (perifericos, 'Periféricos'),
+    }
+
+    tipo = models.CharField(max_length=12, choices=tipo_choices, default=consumiveis)
+    item = models.CharField(max_length=170)
+    fabricante = models.CharField(max_length=90, default= None)
+    quantidade = models.PositiveIntegerField(default=0)
+    status = models.CharField(max_length=12, choices=status_choices, default=disponivel)
+    prateleira = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.item
+

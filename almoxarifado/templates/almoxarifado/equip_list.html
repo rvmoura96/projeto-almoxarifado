@@ -8,7 +8,6 @@
                     <th>Modelo</th>
                     <th>Tipo</th>
                     <th>AI</th>
-                    <th>Quantidade</th>
                     <th>Status</th>
                     <th>Observacoes</th>
                     <th>Detalhes</th>
@@ -17,12 +16,7 @@
                 <tr>
                     <td>{{ equip.modelo }}</td>
                     <td>{{ equip.tipo }}</td>
-                    {% if equip.tipo == 'Periféricos' or equip.tipo == 'Consumíveis' %}
-                        <td></td>
-                    {% else %}
                     <td>{{ equip.ativo_imobilizado }}</td>
-                    {% endif %}
-                    <td>{{ equip.quantidade }}</td>
                     <td>{{ equip.status }}</td>
                     <td>{{ equip.observacoes }}</td>
                     <td><a href="{% url 'equip_detail' pk=equip.pk %}">Visualizar</a></td>
