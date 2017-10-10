@@ -9,7 +9,7 @@
                     <th>Tipo</th>
                     <th>AI</th>
                     <th>Status</th>
-                    <th>Observacoes</th>
+                    <th>Observações</th>
                     <th>Detalhes</th>
                 </tr>
             {% for equip in equips %}
@@ -33,7 +33,16 @@
                 <th>Status</th>
                 <th>Detalhes</th>
             </tr>
+            {% for item in itens %}
+                <tr>
+                    <td>{{ item.item }}</td>
+                    <td>{{ item.tipo }}</td>
+                    <td>{{ item.quantidade }}</td>
+                    <td>{{ item.status }}</td>
+                    <td><a href="{% url 'item_detail' pk=item.pk %}">Visualizar</a></td>
+                </tr>
+            {% endfor %}    
         </table>
     </div>
-    
+
     {% endblock %}  

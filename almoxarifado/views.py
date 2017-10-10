@@ -18,12 +18,27 @@ def equip_list(request):
         equips = paginator.page(paginator.num_pages)
     return render(request, 'almoxarifado/equip_list.html', {'equips': equips})
 
+def item_list(request):
+    itens = Item.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(itens, 5)
+    try:
+        itens = paginator.page(page)
+    except PageNotAnInteger:
+        itens = paginator.page(1)
+    except EmptyPage:
+        itens = paginator.page(paginator.num_pages)
+    return render(request, 'almoxarifado/item_list.html', {'itens': itens})
+
 def general_list(request):
     equips = Equipamento.objects.order_by('-cadastro')[:5]
     itens = Item.objects.order_by('-cadastro')[:5]
 
-    return render(request, 'almoxarifado/general_list.html', {'equips': equips,
-                                                              'itens': itens})
+    return render(request, 'almoxarifado/general_list.html', {'equips': equips,'itens': itens})
+
+def item_detail(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    return render(request, 'almoxarifado/item_detail.html', {'item':item})
 
 def equip_detail(request, pk):
     equip = get_object_or_404(Equipamento, pk=pk)

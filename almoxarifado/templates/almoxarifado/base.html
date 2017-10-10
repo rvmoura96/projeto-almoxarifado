@@ -13,11 +13,16 @@
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <ul class="nav navbar-nav">
-                <li><a class="navbar-brand" href="{% url 'general_list' %}">Controle Almoxarifado</a></li>
+                <li class="active"><a class="navbar-brand" href="{% url 'general_list' %}">Controle Almoxarifado</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Cadastro <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'item_new' %}">Cadastro de Equipamentos</a></li> 
+                        <li><a href="">Cadastro de Itens</a></li>                                        
+                    </ul>
+                </li>
                 <li><a href="{% url 'equip_list' %}">Equipamentos</a></li>
-                <li><a href="">Itens</a></li>
-                <li><a href="{% url 'item_new' %}">Cadastro de Equipamentos</a></li>
-                <li><a href="">Cadastro de Itens</a></li>                
+                <li><a href="{% url 'item_list' %}">Itens</a></li>
             </ul>
         </nav>         
                 {% block content %}
