@@ -14,9 +14,10 @@
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <ul class="nav navbar-nav">
                 <li><a class="navbar-brand" href="{% url 'general_list' %}">Controle Almoxarifado</a></li>
-                <li><a href="{% url 'item_new' %}">Cadastro de Itens</a></li>
-                <li><a href="">Equipamentos</a></li>
+                <li><a href="{% url 'equip_list' %}">Equipamentos</a></li>
                 <li><a href="">Itens</a></li>
+                <li><a href="{% url 'item_new' %}">Cadastro de Equipamentos</a></li>
+                <li><a href="">Cadastro de Itens</a></li>                
             </ul>
         </nav>         
                 {% block content %}
