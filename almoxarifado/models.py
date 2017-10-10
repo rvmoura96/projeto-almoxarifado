@@ -33,6 +33,7 @@ class Equipamento(models.Model):
     status = models.CharField(max_length=12, choices=status_choices, default=disponivel)
     prateleira = models.PositiveIntegerField(default=0)
     observacoes = models.TextField(null=True, blank=True)
+    cadastro = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.modelo
@@ -60,6 +61,8 @@ class Item(models.Model):
     quantidade = models.PositiveIntegerField(default=0)
     status = models.CharField(max_length=12, choices=status_choices, default=disponivel)
     prateleira = models.PositiveIntegerField(default=0)
+    cadastro = models.DateTimeField(default=timezone.now)
+
 
     def __str__(self):
         return self.item

@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Equipamento
+from .models import Equipamento, Item
 from .forms import EquipForm
 
 # Create your views here.
@@ -17,6 +17,13 @@ def equip_list(request):
     except EmptyPage:
         equips = paginator.page(paginator.num_pages)
     return render(request, 'almoxarifado/equip_list.html', {'equips': equips})
+
+def general_list(request):
+    equips = Equipamento.objects.order_by('-cadastro')[:5]
+    itens = Item.objects.order_by('-cadastro')[:5]
+
+    return render(request, 'almoxarifado/general_list.html', {'equips': equips,
+                                                              'itens': itens})
 
 def equip_detail(request, pk):
     equip = get_object_or_404(Equipamento, pk=pk)
