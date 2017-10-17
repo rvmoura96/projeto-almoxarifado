@@ -38,6 +38,14 @@ class Equipamento(models.Model):
     def __str__(self):
         return self.modelo
 
+class Notebook(Equipamento):
+    memoria = models.PositiveIntegerField(default=0)
+    processador = models.CharField(max_length=170)
+    HD = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.modelo
+
 class Item(models.Model):
     disponivel = 'Disponivel'
     indisponivel = 'Indisponivel'
