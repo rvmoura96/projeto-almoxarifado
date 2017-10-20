@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Equipamento, Item
-from .forms import EquipForm
+from .models import Equipamento, Item, Fabricante
+from .forms import EquipForm, FabricanteForm, ItemForm
 
 # Create your views here.
 
@@ -44,20 +44,47 @@ def equip_detail(request, pk):
     equip = get_object_or_404(Equipamento, pk=pk)
     return render(request, 'almoxarifado/equip_detail.html', {'equip': equip})
 
+def fab_detail(request, pk):
+    fabricante = get_object_or_404(Fabricante, pk=pk)
+    return render(request, 'almoxarifado/fab_detail.html', {'fabricante': fabricante})
+
 def item_new(request):
     if request.method == 'POST':
-        form = EquipForm(request.POST)
+        form = ItemForm(request.POST)
         if form.is_valid():
             item = form.save(commit=False)
             item.save()
-            return redirect('equip_detail', pk=item.pk)
+            return redirect('item_detail', pk=item.pk)
+    else:
+        form = ItemForm()
+    return render(request, 'almoxarifado/item_edit.html', {'form': form})
+
+def equip_new(request):
+    if request.method == 'POST':
+        form = EquipForm(request.POST)
+        if form.is_valid():
+            equip = form.save(commit=False)
+            equip.save()
+            return redirect('equip_detail', pk=equip.pk)
     else:
         form = EquipForm()
     return render(request, 'almoxarifado/equip_edit.html', {'form': form})
 
 def item_edit(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    if request.method == 'POST':
+        form = ItemForm(request.POST, instance=item)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.save()
+            return redirect('item_detail', pk=item.pk)
+    else:
+        form = ItemForm(instance=item)
+    return render(request, 'almoxarifado/item_edit.html', {'form': form})
+
+def equip_edit(request, pk):
     equip = get_object_or_404(Equipamento, pk=pk)
-    if request.method =='POST':
+    if request.method == 'POST':
         form = EquipForm(request.POST, instance=equip)
         if form.is_valid():
             equip = form.save(commit=False)
@@ -66,3 +93,26 @@ def item_edit(request, pk):
     else:
         form = EquipForm(instance=equip)
     return render(request, 'almoxarifado/equip_edit.html', {'form': form})
+
+def fab_new(request):
+    if request.method == 'POST':
+        form = FabricanteForm(request.POST)
+        if form.is_valid():
+            fabricante = form.save(commit=False)
+            fabricante.save()
+            return redirect('fab_detail', pk=fabricante.pk)
+    else:
+        form = FabricanteForm()
+    return render(request, 'almoxarifado/fab_edit.html', {'form': form})
+
+def fab_edit(request, pk):
+    fabricante = get_object_or_404(Fabricante, pk=pk)
+    if request.method == 'POST':
+        form = FabricanteForm(request.POST, instance=fabricante)
+        if form.is_valid():
+            fabricante = form.save(commit=False)
+            fabricante.save()
+            return redirect('fab_detail', pk=fabricante.pk)
+    else:
+        form = FabricanteForm(instance=fabricante)
+    return render(request, 'almoxarifado/fab_edit.html', {'form': form})

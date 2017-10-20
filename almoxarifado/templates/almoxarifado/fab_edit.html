@@ -1,9 +1,9 @@
 {% extends 'almoxarifado/base.html' %}
 
 {% block content %}
-    <h1>Novo Equipamento</h1>
+    <h1>Novo Fabricante</h1>
     <div class="form-group">
-        <form method="POST" class="equip-form">
+        <form method="POST" class="fab-form">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" class="save btn btn-default">Cadastrar</button>

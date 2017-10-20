@@ -4,25 +4,25 @@ from django.utils import timezone
 # Create your models here.
 
 class Tipo(models.Model):
-    tipo = models.CharField(max_length=50)
+    tipo = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.tipo
 
 class Tipo_Itens(models.Model):
-    tipo = models.CharField(max_length=50)
+    tipo = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.tipo
 
 class Modelo(models.Model):
-    modelo = models.CharField(max_length=170)
+    modelo = models.CharField(max_length=170, unique=True)
 
     def __str__(self):
         return self.modelo
 
 class Fabricante(models.Model):
-    fabricante = models.CharField(max_length=90)
+    fabricante = models.CharField(max_length=90, unique=True)
 
     def __str__(self):
         return self.fabricante

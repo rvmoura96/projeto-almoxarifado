@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="equip">
-        <h2>Equipamento: {{ equip.tipo }} {{ equip.fabricante }} {{ equip.modelo }} <a class="btn btn-default" href="{% url 'item_edit' pk=equip.pk %}">Editar</a></h2>                       
+        <h2>Equipamento: {{ equip.tipo }} {{ equip.fabricante }} {{ equip.modelo }} <a class="btn btn-default" href="{% url 'equip_edit' pk=equip.pk %}">Editar</a></h2>                       
         <ul class="list-group">
             <li class="list-group-item">Tipo: {{ equip.tipo }}</li>
             <li class="list-group-item">Fabricante: {{ equip.fabricante }}</li>
