@@ -1,5 +1,5 @@
 from django import forms
-from .models import Equipamento, Fabricante, Item, Tipo
+from .models import Equipamento, Fabricante, Item, Tipo, TipoItens
 
 class EquipForm(forms.ModelForm):
     
@@ -25,4 +25,9 @@ class TipoEquipForm(forms.ModelForm):
 
     class Meta:
         model = Tipo
+        fields = ('tipo', )
+
+class TipoItemForm(forms.ModelForm):
+    class Meta:
+        model = TipoItens
         fields = ('tipo', )

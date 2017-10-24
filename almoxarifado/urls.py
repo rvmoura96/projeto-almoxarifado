@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^equip/(?P<pk>\d+)/edit/$', views.equip_edit, name='equip_edit'),
     url(r'^manufacturer/(?P<pk>\d+)/edit/$', views.fab_edit, name='fab_edit'),
     url(r'^item/(?P<pk>\d+)/edit/$', views.item_edit, name='item_edit'),
+    url(r'^tipo/(?P<pk>\d+)/edit/$', views.tipo_equip_edit, name='tipo_equip_edit'),
 ]

@@ -9,7 +9,7 @@ class Tipo(models.Model):
     def __str__(self):
         return self.tipo
 
-class Tipo_Itens(models.Model):
+class TipoItens(models.Model):
     tipo = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
@@ -59,7 +59,7 @@ class Item(models.Model):
         (indisponivel, 'Indisponível'),
     )
 
-    tipo = models.ForeignKey(Tipo_Itens)
+    tipo = models.ForeignKey(TipoItens)
     item = models.CharField(max_length=170)
     fabricante = models.ForeignKey(Fabricante)
     quantidade = models.PositiveIntegerField(default=0)

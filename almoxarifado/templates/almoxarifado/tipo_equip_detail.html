@@ -2,9 +2,9 @@
 
 {% block content %}
 <div class="equip">
-        <h2>Tipo: {{ tipoEquip.tipo }} <a class="btn btn-default" href="#">Editar</a></h2>                       
+        <h2>Tipo: {{ tipo_equip.tipo }} <a class="btn btn-default" href="{% url 'tipo_equip_edit' pk=tipo_equip.pk %}">Editar</a></h2>                       
         <ul class="list-group">
-            <li class="list-group-item">Tipo: {{ tipoEquip.tipo }}</li>
+            <li class="list-group-item">Tipo: {{ tipo_equip.tipo }}</li>
         </ul>
     </div>
 {% endblock %}

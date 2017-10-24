@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Equipamento, Item, Fabricante, Tipo
-from .forms import EquipForm, FabricanteForm, ItemForm, TipoEquipForm
+from .models import Equipamento, Item, Fabricante, Tipo, TipoItens
+from .forms import EquipForm, FabricanteForm, ItemForm, TipoEquipForm, TipoItemForm
 
 # Create your views here.
 
@@ -139,7 +139,34 @@ def tipo_equip_edit(request, pk):
         if form.is_valid():
             tipo_equip = form.save(commit=False)
             tipo_equip.save()
-            return redirect('tipo_edit.html', {'form': form})
+            return redirect('tipo_equip_detail', pk=tipo_equip.pk)
     else:
         form = TipoEquipForm(instance=tipo_equip)
-    return render(request, 'almoxarifado/tipo_edit.html', {'tipo_equip': tipo_equip})
+    return render(request, 'almoxarifado/tipo_edit.html', {'form': form})
+
+def tipo_item_new(request):
+    if request.method == 'POST':
+        form = TipoItemForm(request.POST)
+        if form.is_valid():
+            tipo_item = form.save(commit=False)
+            tipo_item.save()
+            return redirect('almoxarifado/tipo_item_edit.html', pk=tipo_item.pk)
+    else:
+        form = TipoEquipForm()
+    return render(request, 'almoxarifado/tipo_item_edit.html', {'form': form})
+
+def tipo_item_detail(request, pk):
+    tipo_item = get_object_or_404(TipoItens, pk=pk)
+    return render(request, 'almoxarifado/tipo_item_detail.html', {'tipo_item': tipo_item})
+
+def tipo_item_edit(request, pk):
+    tipo_item = get_object_or_404(TipoItens, pk=pk)
+    if request.method == 'POST':
+        form = TipoItemForm(request.POST, instance=tipo_item)
+        if form.is_valid():
+            tipo_item = form.save(commit=False)
+            tipo_item.save()
+            return redirect('almoxarifado/tipo_item_edit.html', {'form': form})
+    else:
+        form = TipoItemForm(instance=tipo_item)
+    return render(request, 'almoxarifado/tipo_item_edit.html', {'tipo_item': tipo_item})
