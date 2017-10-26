@@ -150,7 +150,7 @@ def tipo_item_new(request):
         if form.is_valid():
             tipo_item = form.save(commit=False)
             tipo_item.save()
-            return redirect('almoxarifado/tipo_item_edit.html', pk=tipo_item.pk)
+            return redirect('tipo_item_detail', pk=tipo_item.pk)
     else:
         form = TipoEquipForm()
     return render(request, 'almoxarifado/tipo_item_edit.html', {'form': form})
@@ -166,7 +166,7 @@ def tipo_item_edit(request, pk):
         if form.is_valid():
             tipo_item = form.save(commit=False)
             tipo_item.save()
-            return redirect('almoxarifado/tipo_item_edit.html', {'form': form})
+            return redirect('tipo_item_detail', pk=tipo_item.pk)
     else:
         form = TipoItemForm(instance=tipo_item)
-    return render(request, 'almoxarifado/tipo_item_edit.html', {'tipo_item': tipo_item})
+    return render(request, 'almoxarifado/tipo_item_edit.html', {'form': form})
