@@ -1,0 +1,43 @@
+{% extends 'almoxarifado/base.html' %}
+
+    {% block content %}
+    <div class="table-responsive">
+        <table class ="table table-hover">
+            <h3>Definição Fabricante</h3>
+            <p></p>
+            <caption><h2>Visão Geral de Fabricantes - <a href="" class="btn btn-info" role="button"><span class="glyphicon glyphicon-search"></span> Filtrar</a></h2></caption>
+                <tr>
+                    <th>Fabricante</th>
+                    <th>Editar</th>
+                </tr>
+            {% for fab in fabs %}
+                <tr>
+                    <td>{{ fab.fabricante }}</td>
+                    <td><a href="{% url 'fab_edit' pk=fab.pk %}">Editar</a></td>
+                </tr>
+            {% endfor %}
+        </table><br/>
+    
+    {% if fabs.has_other_pages %}
+        <ul class="pagination">
+            {% if fabs.has_previous %}
+                <li><a href="?page={{ fabs.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in fabs.paginator.page_range %}
+                {% if fabs.number == i %}
+                    <li class="active"><span>{{ i }}<span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li><a href="?page={{ i }}"> {{ i }} </a></li>
+                {% endif %}
+            {% endfor %}
+            {% if itens.has_next %}
+                <li><a href="?page={{  fabs.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+    </div>
+    {% endblock %}  

@@ -36,6 +36,19 @@ def general_list(request):
 
     return render(request, 'almoxarifado/general_list.html', {'equips': equips,'itens': itens})
 
+def fab_list(request):
+    fabs = Fabricante.objects.filter()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(fabs, 5)
+    try:
+        fabs = paginator.page(page)
+    except PageNotAnInteger:
+        fabs = paginator.page(1)
+    except EmptyPage:
+        fabs = paginator.page(paginator.num_pages)
+    return render(request, 'almoxarifado/fab_list.html', {'fabs': fabs})
+
+
 def item_detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
     return render(request, 'almoxarifado/item_detail.html', {'item':item})

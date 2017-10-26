@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^$', views.general_list, name='general_list'),
     url(r'^equips/$', views.equip_list, name='equip_list'),
     url(r'^itens/$', views.item_list, name='item_list'),
+    url(r'^manufacturer/$', views.fab_list, name='fab_list'),
     url(r'^item/(?P<pk>\d+)$', views.item_detail, name='item_detail'),
     url(r'^equip/(?P<pk>\d+)$', views.equip_detail, name='equip_detail'),
     url(r'^manufacturer/(?P<pk>\d+)$', views.fab_detail, name='fab_detail'),
