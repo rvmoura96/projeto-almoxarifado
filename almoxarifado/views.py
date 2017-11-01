@@ -48,6 +48,30 @@ def fab_list(request):
         fabs = paginator.page(paginator.num_pages)
     return render(request, 'almoxarifado/fab_list.html', {'fabs': fabs})
 
+def tipo_item_list(request):
+    tipo_itens = TipoItens.objects.filter()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(tipo_itens, 5)
+    try:
+        tipo_itens = paginator.page(page)
+    except PageNotAnInteger:
+        tipo_itens = paginator.page(1)
+    except EmptyPage:
+        tipo_itens = paginator.page(paginator.num_pages)
+    return render(request, 'almoxarifado/tipo_item_list.html', {'tipo_itens': tipo_itens})
+
+def tipo_equip_list(request):
+    tipo_equips = Tipo.objects.filter()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(tipo_equips, 5)
+    try:
+        tipo_equips = paginator.page(page)
+    except PageNotAnInteger:
+        tipo_equips = paginator.page(1)
+    except EmptyPage:
+        tipo_equips = paginator.page(paginator.num_pages)
+    return render(request, 'almoxarifado/tipo_equip_list.html', {'tipo_equips': tipo_equips})
+
 
 def item_detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
@@ -172,7 +196,7 @@ def tipo_item_detail(request, pk):
     tipo_item = get_object_or_404(TipoItens, pk=pk)
     return render(request, 'almoxarifado/tipo_item_detail.html', {'tipo_item': tipo_item})
 
-def tipo_item_edit(request, pk):
+def tipo_item_edit(request, pk):   
     tipo_item = get_object_or_404(TipoItens, pk=pk)
     if request.method == 'POST':
         form = TipoItemForm(request.POST, instance=tipo_item)

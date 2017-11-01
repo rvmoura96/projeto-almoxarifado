@@ -1,0 +1,41 @@
+{% extends 'almoxarifado/base.html' %}
+
+    {% block content %}
+    <div class="table-responsive">
+        <table class ="table table-hover">
+            <caption><h2>Visão Geral de Tipos de Itens - <a href="" class="btn btn-info" role="button"><span class="glyphicon glyphicon-search"></span> Filtrar</a></h2></caption>
+                <tr>
+                    <th>Tipo</th>
+                    <th></th>
+                </tr>
+            {% for tipo_item in tipo_itens %}
+                <tr>
+                    <td>{{ tipo_item.tipo }}</td>
+                    <td><a href="{% url 'tipo_item_detail' pk=tipo_item.pk %}">Editar</a></td>
+                </tr>
+            {% endfor %}
+        </table><br/>
+    
+    {% if tipo_itens.has_other_pages %}
+        <ul class="pagination">
+            {% if tipo_itens.has_previous %}
+                <li><a href="?page={{ tipo_itens.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in tipo_itens.paginator.page_range %}
+                {% if tipo_itens.number == i %}
+                    <li class="active"><span>{{ i }}<span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li><a href="?page={{ i }}"> {{ i }} </a></li>
+                {% endif %}
+            {% endfor %}
+            {% if itens.has_next %}
+                <li><a href="?page={{  tipo_itens.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+    </div>
+    {% endblock %}  
