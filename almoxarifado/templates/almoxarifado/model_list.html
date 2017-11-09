@@ -1,0 +1,41 @@
+{% extends 'almoxarifado/base.html' %}
+
+    {% block content %}
+    <div class="table-responsive">
+        <table class ="table table-hover">
+            <caption><h2>Visão Geral de Fabricantes - <a href="" class="btn btn-info" role="button"><span class="glyphicon glyphicon-search"></span> Filtrar</a></h2></caption>
+                <tr>
+                    <th>Modelos</th>
+                    <th></th>
+                </tr>
+            {% for model in models %}
+                <tr>
+                    <td>{{ model.modelo }}</td>
+                    <td><a href="{% url 'model_edit' pk=model.pk %}">Editar</a></td>
+                </tr>
+            {% endfor %}
+        </table><br/>
+    
+    {% if models.has_other_pages %}
+        <ul class="pagination">
+            {% if models.has_previous %}
+                <li><a href="?page={{ models.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in models.paginator.page_range %}
+                {% if models.number == i %}
+                    <li class="active"><span>{{ i }}<span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li><a href="?page={{ i }}"> {{ i }} </a></li>
+                {% endif %}
+            {% endfor %}
+            {% if itens.has_next %}
+                <li><a href="?page={{  models.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+    </div>
+    {% endblock %}  

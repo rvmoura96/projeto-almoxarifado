@@ -1,0 +1,10 @@
+{% extends 'almoxarifado/base.html' %}
+
+{% block content %}
+<div class="equip">
+        <h2>Modelo: {{ modelo.modelo }} <a class="btn btn-default" href="{% url 'model_edit' pk=modelo.pk %}">Editar</a></h2>                       
+        <ul class="list-group">
+            <li class="list-group-item">Modelo: {{ modelo.modelo }}</li>
+        </ul>
+    </div>
+{% endblock %}

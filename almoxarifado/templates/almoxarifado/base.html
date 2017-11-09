@@ -21,14 +21,16 @@
                         <li><a href="{% url 'item_new' %}">Cadastro de Itens</a></li>     
                         <li><a href="{% url 'fab_new' %}">Cadastro de Fabricante</a></li>
                         <li><a href="{% url 'tipo_equip_new' %}">Cadastro de Tipos de Equipamentos</a></li>
-                        <li><a href="{% url 'tipo_item_new' %}">Cadastro de Tipos de Itens</a></li>                                                          
+                        <li><a href="{% url 'tipo_item_new' %}">Cadastro de Tipos de Itens</a></li>      
+                        <li><a href="{% url 'model_new' %}">Cadastro de Modelos de Equipamentos</a></li>                                                                                  
                     </ul>
                 </li>
                 <li><a href="{% url 'equip_list' %}">Equipamentos</a></li>
                 <li><a href="{% url 'item_list' %}">Itens</a></li>
                 <li><a href="{% url 'fab_list' %}">Fabricantes</a></li>
                 <li><a href="{% url 'tipo_item_list' %}">Tipo Itens</a></li>       
-                <li><a href="{% url 'tipo_equip_list' %}">Tipo Equipamentos</a></li>                                
+                <li><a href="{% url 'tipo_equip_list' %}">Tipo Equipamentos</a></li>  
+                <li><a href="{% url 'model_list' %}">Modelos Equipamentos</a></li>                              
             </ul>
         </nav>         
                 {% block content %}

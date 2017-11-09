@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Equipamento, Item, Fabricante, Tipo, TipoItens
-from .forms import EquipForm, FabricanteForm, ItemForm, TipoEquipForm, TipoItemForm
+from .models import Equipamento, Item, Fabricante, Tipo, TipoItens, Modelo
+from .forms import EquipForm, FabricanteForm, ItemForm, TipoEquipForm, TipoItemForm, ModeloForm
 
 # Create your views here.
 
@@ -48,6 +48,18 @@ def fab_list(request):
         fabs = paginator.page(paginator.num_pages)
     return render(request, 'almoxarifado/fab_list.html', {'fabs': fabs})
 
+def model_list(request):
+    models = Modelo.objects.filter()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(models, 5)
+    try:
+        models = paginator.page(page)
+    except PageNotAnInteger:
+        models = paginator.page(1)
+    except EmptyPage:
+        models = paginator.page(paginator.num_pages)
+    return render(request, 'almoxarifado/model_list.html', {'models': models})
+
 def tipo_item_list(request):
     tipo_itens = TipoItens.objects.filter()
     page = request.GET.get('page', 1)
@@ -72,7 +84,6 @@ def tipo_equip_list(request):
         tipo_equips = paginator.page(paginator.num_pages)
     return render(request, 'almoxarifado/tipo_equip_list.html', {'tipo_equips': tipo_equips})
 
-
 def item_detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
     return render(request, 'almoxarifado/item_detail.html', {'item':item})
@@ -85,6 +96,10 @@ def fab_detail(request, pk):
     fabricante = get_object_or_404(Fabricante, pk=pk)
     return render(request, 'almoxarifado/fab_detail.html', {'fabricante': fabricante})
 
+def model_detail(request, pk):
+    modelo  = get_object_or_404(Modelo, pk=pk)
+    return render(request, 'almoxarifado/model_detail.html', {'modelo': modelo})
+
 def item_new(request):
     if request.method == 'POST':
         form = ItemForm(request.POST)
@@ -95,6 +110,17 @@ def item_new(request):
     else:
         form = ItemForm()
     return render(request, 'almoxarifado/item_edit.html', {'form': form})
+
+def model_new(request):
+    if request.method == 'POST':
+        form = ModeloForm(request.POST)
+        if form.is_valid():
+            model = form.save(commit=False)
+            model.save()
+            return redirect('model_detail', pk=model.pk)
+    else:
+        form = ModeloForm()
+    return render(request, 'almoxarifado/model_edit.html', {'form': form})
 
 def equip_new(request):
     if request.method == 'POST':
@@ -130,6 +156,18 @@ def equip_edit(request, pk):
     else:
         form = EquipForm(instance=equip)
     return render(request, 'almoxarifado/equip_edit.html', {'form': form})
+
+def model_edit(request, pk):
+    model = get_object_or_404(Modelo, pk=pk)
+    if request.method == 'POST':
+        form = ModeloForm(request.POST, instance=model)
+        if form.is_valid():
+            model = form.save(commit=False)
+            model.save()
+            return redirect('model_detail', pk=model.pk)
+    else:
+        form = ModeloForm(instance=model)
+    return render(request, 'almoxarifado/model_edit.html', {'form': form})
 
 def fab_new(request):
     if request.method == 'POST':
