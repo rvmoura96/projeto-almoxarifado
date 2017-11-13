@@ -4,4 +4,4 @@ import django_filters
 class EquipFilter(django_filters.FilterSet):
     class Meta:
         model = Equipamento
-        fields = ['modelo', 'fabricante', 'status', 'tipo', ]
+        fields = ['modelo', 'fabricante', 'status', 'tipo', 'ativo_imobilizado', ]

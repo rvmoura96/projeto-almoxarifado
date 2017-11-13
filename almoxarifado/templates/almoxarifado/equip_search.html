@@ -1,4 +1,5 @@
 {% extends 'almoxarifado/base.html' %}
+{% load widget_tweaks %}
 
     {% block content %}
     <div class="table-responsive">
@@ -7,8 +8,32 @@
             <p>Categoriza-se como equipamento todos aqueles que possuímos controle através de Ativo Imobilizado por exemplo monitores, desktops, projetores, etc.</p>
                 
                 <form method="get">
-                    {{ filter.form.as_p }}
-                    <button type="submit">Search</button>
+                    <div class="well">
+                        <h4>Filtrar</h4>
+                        <div class="row">
+                            <div class="form-group col-sm-4 col-md-3">
+                                {{ filter.form.modelo.label_tag }}
+                                {% render_field filter.form.modelo class="form-control" %}
+                            </div>
+                            <div class="form-group col-sm-4 col-md-3">
+                                {{ filter.form.fabricante.label_tag }}
+                                {% render_field filter.form.fabricante class="form-control" %}
+                            </div>
+                            <div class="form-group col-sm-4 col-md-3">
+                                {{ filter.form.status.label_tag }}
+                                {% render_field filter.form.status class="form-control" %}
+                            </div>
+                            <div class="form-group col-sm-4 col-md-3">
+                                {{ filter.form.tipo.label_tag }}
+                                {% render_field filter.form.tipo class="form-control" %}
+                            </div>
+                            <div class="form-group col-sm-4 col-md-3">
+                                {{ filter.form.ativo_imobilizado.label_tag }}
+                                {% render_field filter.form.ativo_imobilizado class="form-control" %}
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Pesquisar</button>                        
+                    </div>
                 </form>
                 <tr>
                     <th>Modelo</th>
