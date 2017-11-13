@@ -12,44 +12,37 @@
                         <h4>Filtrar</h4>
                         <div class="row">
                             <div class="form-group col-sm-4 col-md-3">
-                                {{ filter.form.modelo.label_tag }}
-                                {% render_field filter.form.modelo class="form-control" %}
-                            </div>
-                            <div class="form-group col-sm-4 col-md-3">
-                                {{ filter.form.fabricante.label_tag }}
-                                {% render_field filter.form.fabricante class="form-control" %}
-                            </div>
-                            <div class="form-group col-sm-4 col-md-3">
-                                {{ filter.form.status.label_tag }}
-                                {% render_field filter.form.status class="form-control" %}
+                                {{ filter.form.item.label_tag }}
+                                {% render_field filter.form.item class="form-control" %}
                             </div>
                             <div class="form-group col-sm-4 col-md-3">
                                 {{ filter.form.tipo.label_tag }}
                                 {% render_field filter.form.tipo class="form-control" %}
                             </div>
                             <div class="form-group col-sm-4 col-md-3">
-                                {{ filter.form.ativo_imobilizado.label_tag }}
-                                {% render_field filter.form.ativo_imobilizado class="form-control" %}
+                                {{ filter.form.status.label_tag }}
+                                {% render_field filter.form.status class="form-control" %}
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Pesquisar</button>                        
                     </div>
                 </form>
                 <tr>
-                    <th>Modelo</th>
+                    <th>Item</th>
                     <th>Tipo</th>
-                    <th>AI</th>
+                    <th>Quantidade</th>
                     <th>Status</th>
                     <th>Detalhes</th>
                 </tr>
-            {% for equip in filter.qs %}
+            {% for item in filter.qs %}
                 <tr>
-                    <td>{{ equip.modelo }}</td>
-                    <td>{{ equip.tipo }}</td>
-                    <td>{{ equip.ativo_imobilizado }}</td>
-                    <td>{{ equip.status }}</td>
-                    <td><a href="{% url 'equip_detail' pk=equip.pk %}">Visualizar</a></td>
+                    <td>{{ item.item }}</td>
+                    <td>{{ item.tipo }}</td>
+                    <td>{{ item.quantidade }}</td>
+                    <td>{{ item.status }}</td>
+                    <td><a href="{% url 'item_detail' pk=item.pk %}">Visualizar</a></td>
                 </tr>
             {% endfor %}
         </table><br/>
+    </div>
     {% endblock %}  

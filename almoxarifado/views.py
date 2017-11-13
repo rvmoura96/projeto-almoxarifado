@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Equipamento, Item, Fabricante, Tipo, TipoItens, Modelo
 from .forms import EquipForm, FabricanteForm, ItemForm, TipoEquipForm, TipoItemForm, ModeloForm
-from .filters import EquipFilter
+from .filters import EquipFilter, ItemFilter
 
 # Create your views here.
 
@@ -23,6 +23,11 @@ def equip_filter(request):
     equip = Equipamento.objects.all()
     equip_filter = EquipFilter(request.GET, queryset=equip)
     return render(request, 'almoxarifado/equip_search.html', {'filter': equip_filter})
+
+def item_filter(request):
+    item = Item.objects.all()
+    item_filter = ItemFilter(request.GET, queryset=item)
+    return render(request, 'almoxarifado/item_search.html', {'filter': item_filter})
 
 def item_list(request):
     itens = Item.objects.all()
