@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Equipamento, Item, Fabricante, Tipo, TipoItens, Modelo
 from .forms import EquipForm, FabricanteForm, ItemForm, TipoEquipForm, TipoItemForm, ModeloForm
-from .filters import EquipFilter, ItemFilter, FabFilter
+from .filters import EquipFilter, ItemFilter, FabFilter, TipoItemFilter, TipoFilter, ModeloFilter
 
 # Create your views here.
 
@@ -29,10 +29,25 @@ def item_filter(request):
     item_filter = ItemFilter(request.GET, queryset=item)
     return render(request, 'almoxarifado/item_search.html', {'filter': item_filter})
 
+def tipo_item_filter(request):
+    tipo = TipoItens.objects.all()
+    tipo_filter = TipoItemFilter(request.GET, queryset=tipo)
+    return render(request, 'almoxarifado/tipo_item_search.html', {'filter': tipo_filter})
+
 def fab_filter(request):
-    fabricante = Fabricante.objects.all()
+    fabricante = Fabricante.objects.filter()
     fab_filter = FabFilter(request.GET, queryset=fabricante)
     return render(request, 'almoxarifado/fab_search.html', {'filter': fab_filter})
+
+def tipo_equip_filter(request):
+    tipo = Tipo.objects.all()
+    tipo_filter = TipoFilter(request.GET, queryset=tipo)
+    return render(request, 'almoxarifado/tipo_equip_search.html', {'filter': tipo_filter})
+
+def modelo_filter(request):
+    modelo = Modelo.objects.all()
+    modelo_filter = ModeloFilter(request.GET, queryset=modelo)
+    return render(request, 'almoxarifado/modelo_search.html', {'filter': modelo_filter})
 
 def item_list(request):
     itens = Item.objects.all()

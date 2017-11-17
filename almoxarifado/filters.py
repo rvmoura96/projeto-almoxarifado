@@ -1,4 +1,4 @@
-from .models import Equipamento, Item, Fabricante
+from .models import Equipamento, Item, Fabricante, TipoItens, Tipo, Modelo
 import django_filters
 
 class EquipFilter(django_filters.FilterSet):
@@ -15,3 +15,18 @@ class FabFilter(django_filters.FilterSet):
     class Meta:
         model = Fabricante
         fields = ['fabricante', ]
+
+class TipoItemFilter(django_filters.FilterSet):
+    class Meta:
+        model = TipoItens
+        fields = ['tipo', ]
+
+class TipoFilter(django_filters.FilterSet):
+    class Meta:
+        model = Tipo
+        fields = ['tipo', ]
+
+class ModeloFilter(django_filters.FilterSet):
+    class Meta:
+        model = Modelo
+        fields = ['modelo', ]

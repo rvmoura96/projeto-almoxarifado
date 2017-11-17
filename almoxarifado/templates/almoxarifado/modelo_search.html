@@ -1,0 +1,30 @@
+{% extends 'almoxarifado/base.html' %}
+{% load widget_tweaks %}
+
+    {% block content %}
+    <div class="table-responsive">
+        <table class ="table table-hover">
+               <form method="get">
+                    <div class="well">
+                        <h4>Filtrar</h4>
+                        <div class="row">
+                            <div class="form-group col-sm-4 col-md-3">
+                                {{ filter.form.modelo.label_tag }}
+                                {% render_field filter.form.modelo class="form-control" %}
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Pesquisar</button>                        
+                    </div>
+                </form>
+                <tr>
+                    <th>Modelos de equipamentos</th>
+                </tr>
+            {% for modelo in filter.qs %}
+                <tr>
+                    <td>{{ modelo.modelo }}</td>
+                    <td><a href="{% url 'model_detail' pk=modelo.pk %}">Visualizar</a></td>
+                </tr>
+            {% endfor %}
+        </table><br/>
+    </div>
+    {% endblock %}  
