@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic.list import ListView
 from .models import Equipamento, Item, Fabricante, Tipo, TipoItens, Modelo
 from .forms import EquipForm, FabricanteForm, ItemForm, TipoEquipForm, TipoItemForm, ModeloForm
 from .filters import EquipFilter, ItemFilter, FabFilter, TipoItemFilter, TipoFilter, ModeloFilter
@@ -44,22 +45,19 @@ def tipo_equip_filter(request):
     tipo_filter = TipoFilter(request.GET, queryset=tipo)
     return render(request, 'almoxarifado/tipo_equip_search.html', {'filter': tipo_filter})
 
+
 def modelo_filter(request):
     modelo = Modelo.objects.all()
     modelo_filter = ModeloFilter(request.GET, queryset=modelo)
     return render(request, 'almoxarifado/modelo_search.html', {'filter': modelo_filter})
 
-def item_list(request):
-    itens = Item.objects.all()
-    page = request.GET.get('page', 1)
-    paginator = Paginator(itens, 5)
-    try:
-        itens = paginator.page(page)
-    except PageNotAnInteger:
-        itens = paginator.page(1)
-    except EmptyPage:
-        itens = paginator.page(paginator.num_pages)
-    return render(request, 'almoxarifado/item_list.html', {'itens': itens})
+class ItemListView(ListView):
+    model = Item
+    template = 'almoxarifado/item_list.html'
+    context_object_name = 'itens'
+    paginate_by = 5
+    query_set = Item.objects.all()
+   
 
 def general_list(request):
     equips = Equipamento.objects.order_by('-cadastro')[:5]

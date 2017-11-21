@@ -2,9 +2,8 @@
 {% load widget_tweaks %}
 
     {% block content %}
-    <div class="table-responsive">
-        <table class ="table table-hover">
-               <form method="get">
+        <div class="table-responsive">
+            <form method="get">
                     <div class="well">
                         <h4>Filtrar</h4>
                         <div class="row">
@@ -15,16 +14,17 @@
                         </div>
                         <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Pesquisar</button>                        
                     </div>
-                </form>
-                <tr>
-                    <th>Tipo de Equipamentos</th>
-                </tr>
-            {% for tipo in filter.qs %}
-                <tr>
-                    <td>{{ tipo.tipo }}</td>
-                    <td><a href="{% url 'tipo_equip_detail' pk=tipo.pk %}">Visualizar</a></td>
-                </tr>
-            {% endfor %}
-        </table><br/>
-    </div>
+            </form>
+            <table class ="table table-hover">
+                    <tr>
+                        <th>Tipo de Equipamentos</th>
+                    </tr>
+                {% for tipo in filter.qs %}
+                    <tr>
+                        <td>{{ tipo.tipo }}</td>
+                        <td><a href="{% url 'tipo_equip_detail' pk=tipo.pk %}">Visualizar</a></td>
+                    </tr>
+                {% endfor %}
+            </table><br/>
+        </div>
     {% endblock %}  

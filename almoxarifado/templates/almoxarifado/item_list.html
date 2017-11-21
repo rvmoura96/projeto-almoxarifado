@@ -13,37 +13,36 @@
                     <th>Status</th>
                     <th>Detalhes</th>
                 </tr>
-            {% for item in itens %}
+            {% for iten in itens %}
                 <tr>
-                    <td>{{ item.item }}</td>
-                    <td>{{ item.tipo }}</td>
-                    <td>{{ item.quantidade }}</td>
-                    <td>{{ item.status }}</td>
-                    <td><a href="{% url 'item_detail' pk=item.pk %}">Visualizar</a></td>
+                    <td>{{ iten.item }}</td>
+                    <td>{{ iten.tipo }}</td>
+                    <td>{{ iten.quantidade }}</td>
+                    <td>{{ iten.status }}</td>
+                    <td><a href="{% url 'item_detail' pk=iten.pk %}">Visualizar</a></td>
                 </tr>
             {% endfor %}
-        </table><br/>
-    
-    {% if itens.has_other_pages %}
-        <ul class="pagination">
-            {% if itens.has_previous %}
-                <li><a href="?page={{ itens.previous_page_number }}">&laquo;</a></li>
+        </table><br/> 
+        {% if is_paginated %}
+            <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}"></a></li>
             {% else %}
                 <li class="disabled"><span>&laquo;</span></li>
             {% endif %}
-            {% for i in itens.paginator.page_range %}
-                {% if itens.number == i %}
-                    <li class="active"><span>{{ i }}<span class="sr-only">(current)</span></span></li>
+            {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
                 {% else %}
-                    <li><a href="?page={{ i }}"> {{ i }} </a></li>
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
                 {% endif %}
             {% endfor %}
-            {% if itens.has_next %}
-                <li><a href="?page={{  itens.next_page_number }}">&raquo;</a></li>
+            {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
             {% else %}
                 <li class="disabled"><span>&raquo;</span></li>
             {% endif %}
-        </ul>
-    {% endif %}
+            </ul>
+        {% endif %}
     </div>
     {% endblock %}  
